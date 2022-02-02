@@ -1,0 +1,19 @@
+{% extends "blog_stuff/base.html" %} 
+
+{% block content %}
+
+<p>Título: {{title}} </p>
+
+<p> Textos </p>
+<ul>
+    {% for text in texts %}
+        <li>
+            <p>{{text.date_added}}</p>
+            <p>{{text.text|linebreaks}}</p>
+        </li>
+        {% empty %}
+        <li> Ainda não há textos nesse tópico </li>
+    {% endfor%}
+</ul>
+
+{% endblock content %}

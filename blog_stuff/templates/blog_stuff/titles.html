@@ -6,7 +6,9 @@
     <p>Títulos: </p>
     <ul>
         {% for title in titles %}
-            <li>{{title}}</li>
+            <li>
+                <a href="{% url 'blog_stuff:texts' title.id %}">{{title}}</a>
+            </li>
             {% empty %}
             <li>Nenhum título foi adicionado ainda</li>
 
