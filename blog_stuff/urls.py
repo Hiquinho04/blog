@@ -3,6 +3,7 @@ from . import views
 
 #urls internas 
 urlpatterns = [
-    path('', views.index, name='index')
-    
+    path('', views.index, name='index'),
+    path('titles/', views.titles, name='titles'),
+
 ]

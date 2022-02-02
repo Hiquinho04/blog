@@ -1,0 +1,17 @@
+{% extends "blog_stuff/base.html" %}
+
+{% block content %}
+
+<p>
+    <p>Títulos: </p>
+    <ul>
+        {% for title in titles %}
+            <li>{{title}}</li>
+            {% empty %}
+            <li>Nenhum título foi adicionado ainda</li>
+
+        {% endfor %}
+    </ul>
+</p>
+
+{% endblock content %}
