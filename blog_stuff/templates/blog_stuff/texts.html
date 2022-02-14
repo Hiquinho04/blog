@@ -13,6 +13,9 @@
         <li>
             <p>{{text.date_added}}</p>
             <p>{{text.text|linebreaks}}</p>
+            <p>
+                <a href="{% url 'blog_stuff:edit_entry' text.id %}">Edit entry</a>
+            </p>
         </li>
         {% empty %}
         <li> Ainda não há textos nesse tópico </li>

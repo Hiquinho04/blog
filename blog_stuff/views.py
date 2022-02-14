@@ -4,7 +4,7 @@ from django.urls import reverse
 
 
 from .forms import NewTopic, New_Entry
-from blog_stuff.models import Title
+from blog_stuff.models import Title, Text
 
 
 # Create your views here.
@@ -59,3 +59,19 @@ def new_entry(request, title_id):
 
     context = {'title': title, 'form': form} 
     return render(request, 'blog_stuff/new_entry.html', context)   
+
+def edit_entry(request, entry_id):
+    """Edita as entradas"""
+    text = Text.objects.get(id=entry_id)
+    title = text.title
+
+    if request.method == 'POST':
+        form = New_Entry(instance=text, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('blog_stuff:texts', args=[title.id]))
+    else:
+        form = New_Entry(instance=text)
+
+    context={'text':text, 'title':title, 'form':form}
+    return render(request, 'blog_stuff/edit_entry.html', context)
