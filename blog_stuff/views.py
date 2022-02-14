@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
-from .forms import NewTopic
+from .forms import NewTopic, New_Entry
 from blog_stuff.models import Title
 
 
@@ -41,3 +41,21 @@ def new_topic(request):
         
     context = {'form': form}
     return render(request, 'blog_stuff/new_topic.html', context)
+
+
+def new_entry(request, title_id):
+    """Entradas em cada tópico"""
+    title = Title.objects.get(id = title_id)
+
+    if request.method == 'POST':
+        form = New_Entry(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.title = title
+            new_entry.save()
+            return HttpResponseRedirect(reverse('blog_stuff:texts', args=[title_id]))
+    else:
+        form = New_Entry()
+
+    context = {'title': title, 'form': form} 
+    return render(request, 'blog_stuff/new_entry.html', context)   

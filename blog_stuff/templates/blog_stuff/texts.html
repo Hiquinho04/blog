@@ -4,6 +4,9 @@
 
 <p>Título: {{title}} </p>
 
+<p>
+    <a href="{% url 'blog_stuff:new_entry' title.id %}">Add new entry</a>
+</p>
 <p> Textos </p>
 <ul>
     {% for text in texts %}
@@ -15,5 +18,6 @@
         <li> Ainda não há textos nesse tópico </li>
     {% endfor%}
 </ul>
+
 
 {% endblock content %}
