@@ -3,3 +3,5 @@ manage.py
 db.sqlite3
 blog_geral/
 bg_env/
+users/migrations/
+users/__init__.py

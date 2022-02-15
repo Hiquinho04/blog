@@ -1,0 +1,17 @@
+{% extends "blog_stuff/base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+    <p>Your username or password is wrong, try again </p>
+{% endif %}
+
+<form action="{% url 'users:login' %}" method='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button name='submit'>enter</button>
+    <input type="hidden" name='next' value="{% url 'blog_stuff:index' %}" />
+
+</form>
+
+{% endblock content %}
