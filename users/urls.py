@@ -9,6 +9,6 @@ urlpatterns = [
                 name='login'),
     #views.logout é uma função NÃO USAR
     path('logout/', views.logout_views, name='logout'),
-
+    path('register/', views.register, name='register'),
     
 ]
