@@ -40,7 +40,10 @@ def new_topic(request):
     if request.method == 'POST':
         form = NewTopic(request.POST)
         if form.is_valid():
-            form.save()
+            # Adicionando o usuario no form
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return HttpResponseRedirect(reverse('blog_stuff:titles'))
         
     else:
@@ -76,7 +79,7 @@ def edit_entry(request, entry_id):
     title = text.title
 
     check_user(request, title)
-    
+
     if request.method == 'POST':
         form = New_Entry(instance=text, data=request.POST)
         if form.is_valid():
