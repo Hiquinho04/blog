@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 
 
+
 # Create your views here.
 def logout_views(request):
     """Realiza o logout da conta"""

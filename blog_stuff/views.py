@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 from .forms import NewTopic, New_Entry
@@ -15,12 +16,14 @@ def index(request):
     
     return render(request, 'blog_stuff/index.html')
 
+@login_required
 def titles(request):
     """Titulos"""
     titles = Title.objects.order_by('date_added')
     context = {'titles':titles}
     return render(request, 'blog_stuff/titles.html', context)
 
+@login_required
 def texts(request, title_id):
     """Textos"""
     title = Title.objects.get(id=title_id)
@@ -28,6 +31,7 @@ def texts(request, title_id):
     context = {'title':title, 'texts':texts}
     return render(request, 'blog_stuff/texts.html', context)
 
+@login_required
 def new_topic(request):
     """Novos títulos"""
     if request.method == 'POST':
@@ -42,7 +46,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'blog_stuff/new_topic.html', context)
 
-
+@login_required
 def new_entry(request, title_id):
     """Entradas em cada tópico"""
     title = Title.objects.get(id = title_id)
@@ -60,6 +64,7 @@ def new_entry(request, title_id):
     context = {'title': title, 'form': form} 
     return render(request, 'blog_stuff/new_entry.html', context)   
 
+@login_required
 def edit_entry(request, entry_id):
     """Edita as entradas"""
     text = Text.objects.get(id=entry_id)
