@@ -2,6 +2,7 @@
      <a href="{% url 'blog_stuff:index' %}"> Página Inicial</a>
      <a href="{% url 'blog_stuff:titles' %}"> Títulos </a> - 
      {% if user.is_authenticated %}
+        Seja Bem-Vindo, {{user.username}} - 
         <a href="{% url 'users:logout' %}">Logout</a>
      {% else %}
             <a href="{% url 'users:register' %}">Register</a> - 

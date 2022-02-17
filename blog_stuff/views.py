@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -19,7 +19,7 @@ def index(request):
 @login_required
 def titles(request):
     """Titulos"""
-    titles = Title.objects.order_by('date_added')
+    titles = Title.objects.filter(owner=request.user).order_by('date_added')
     context = {'titles':titles}
     return render(request, 'blog_stuff/titles.html', context)
 
@@ -28,6 +28,9 @@ def texts(request, title_id):
     """Textos"""
     title = Title.objects.get(id=title_id)
     texts = title.text_set.order_by('-date_added')
+    # Verifica se o usuario esta acessando um link proprio
+    check_user(request, title)
+
     context = {'title':title, 'texts':texts}
     return render(request, 'blog_stuff/texts.html', context)
 
@@ -51,6 +54,8 @@ def new_entry(request, title_id):
     """Entradas em cada tópico"""
     title = Title.objects.get(id = title_id)
 
+    check_user(request, title)
+
     if request.method == 'POST':
         form = New_Entry(data=request.POST)
         if form.is_valid():
@@ -70,6 +75,8 @@ def edit_entry(request, entry_id):
     text = Text.objects.get(id=entry_id)
     title = text.title
 
+    check_user(request, title)
+    
     if request.method == 'POST':
         form = New_Entry(instance=text, data=request.POST)
         if form.is_valid():
@@ -80,3 +87,7 @@ def edit_entry(request, entry_id):
 
     context={'text':text, 'title':title, 'form':form}
     return render(request, 'blog_stuff/edit_entry.html', context)
+
+def check_user(request, title):
+    if title.owner != request.user:
+        raise Http404
