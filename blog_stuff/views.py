@@ -29,9 +29,11 @@ def texts(request, title_id):
     title = Title.objects.get(id=title_id)
     texts = title.text_set.order_by('-date_added')
     # Verifica se o usuario esta acessando um link proprio
-    check_user(request, title)
+    public_user = 0
+    if title.owner != request.user:
+        public_user = 1
 
-    context = {'title':title, 'texts':texts}
+    context = {'title':title, 'texts':texts, 'public_user':public_user}
     return render(request, 'blog_stuff/texts.html', context)
 
 @login_required

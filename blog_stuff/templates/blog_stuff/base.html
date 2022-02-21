@@ -1,15 +1,66 @@
- <p>
-     <a href="{% url 'blog_stuff:index' %}"> Página Inicial</a>
-     <a href="{% url 'blog_stuff:titles' %}"> Títulos </a> - 
-     {% if user.is_authenticated %}
-        Seja Bem-Vindo, {{user.username}} - 
-        <a href="{% url 'users:logout' %}">Logout</a>
-     {% else %}
-            <a href="{% url 'users:register' %}">Register</a> - 
-            <a href="{% url 'users:login' %}">Login</a>
-     {% endif %}
+{% load bootstrap3 %} 
 
- </p>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Hiquinho Blog</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+    </head>
+
+    <body>
+        <!--Static Navbar-->
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toogle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    <a class="navbar-brand" href="{% url 'blog_stuff:index' %}">
+                        Hiquinho Blog
+                    </a>
+                </div> <!--navbar-header-->
+
+                <div id="navbar" class="navbar-collapse collpase">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="{% url 'blog_stuff:titles' %}">
+                                Titles
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.authenticated %}
+                        <li> <a>Hello, {{user.username}}</a></li>
+                        <li><a href="{% url 'users:logout' %}">log out</a></li>
+                        
+                        {% else %}
+                        <li><a href="{% url 'users:register' %}">register</a></li>
+                        <li><a href="{% url 'users:login' %}">log in</a></li>
+                        {% endif %}
+                    </ul>
+
+                </div> <!--navbar collapse-->
+            </div> <!--container-->
+        </nav>
 
 
- {% block content%}{% endblock content %}
+        <div class="container">
+            <div class="page-header">
+                {% block header %}{% endblock header %}
+
+            </div>
+            <div>
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+
+    </body>
+</html>
