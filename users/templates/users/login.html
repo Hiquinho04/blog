@@ -11,15 +11,16 @@
 
 {% block content %}
 
-<form action="{% url 'users:login' %}" method='post'
-    class="form">
+<form action="{% url 'users:login' %}" method="post"
+        class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
+    
     {% buttons %}
         <button name="submitt" class="btn btn-primary">log in</button>
     {% endbuttons %}
 
-    
+
     <input type="hidden" name='next' value="{% url 'blog_stuff:index' %}" />
 
 </form>

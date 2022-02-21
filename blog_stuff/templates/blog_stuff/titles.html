@@ -1,23 +1,27 @@
 {% extends "blog_stuff/base.html" %}
 
+{% block header %}
+    <h1>
+        Títulos:
+    </h1>
+{% endblock header %}
+
 {% block content %}
-
-<p>
-    <p>Títulos: </p>
-
     <ul>
-        <p>
-            <a href="{% url 'blog_stuff:new_topic' %}">Add New Topic</a>
-        </p>
         {% for title in titles %}
-            <li>
+        <li>
+            <h3>
                 <a href="{% url 'blog_stuff:texts' title.id %}">{{title}}</a>
-            </li>
-            {% empty %}
-            <li>Nenhum título foi adicionado ainda</li>
-
+            </h3>
+        </li>
+        {% empty %}
+        <li>Nenhum título foi adicionado ainda</li>
+        
         {% endfor %}
     </ul>
-</p>
+    
+    <h3>
+        <a href="{% url 'blog_stuff:new_topic' %}">Add New Topic</a>
+    </h3>
 
 {% endblock content %}
