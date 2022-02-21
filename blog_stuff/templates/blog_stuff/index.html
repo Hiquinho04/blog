@@ -1,7 +1,21 @@
 {% extends "blog_stuff/base.html" %}
+{% block header %}
+    <div class="jumbotron">
+        <h1>
+            Compartilhe seu conhecimento!
+        </h1>
+    </div>
+{% endblock header %}
 
 {% block content %}
 
-<p>Seja bem vindo ao blog do Hiquinho</p>
+<h2>
+    <a href="{% url 'users:register' %}">Crie sua conta </a>
+    e faça parte do Hiquinho Blog
+</h2>
 
+<h2>
+    Sempre que aprender algo novo e estiver afim de compartilhar
+    este é o espaço certo!
+</h2>
 {% endblock content %}
