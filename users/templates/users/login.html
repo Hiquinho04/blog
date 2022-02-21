@@ -1,16 +1,25 @@
 {% extends "blog_stuff/base.html" %}
+{% load bootstrap3%}
+
+
+{% block header %}
+    <h2>
+        Faça Login com sua conta!
+    </h2>
+{% endblock header %}
 
 
 {% block content %}
 
-{% if form.errors %}
-    <p>Your username or password is wrong, try again </p>
-{% endif %}
-
-<form action="{% url 'users:login' %}" method='post'>
+<form action="{% url 'users:login' %}" method='post'
+    class="form">
     {% csrf_token %}
-    {{form.as_p}}
-    <button name='submit'>enter</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button name="submitt" class="btn btn-primary">log in</button>
+    {% endbuttons %}
+
+    
     <input type="hidden" name='next' value="{% url 'blog_stuff:index' %}" />
 
 </form>
